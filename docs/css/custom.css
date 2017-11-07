@@ -1,0 +1,25 @@
+body {
+  color: #3b424b;
+  background-color: #fbfbfb;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-size: 1.6em;
+  font-weight: 300;
+  letter-spacing: .01em;
+  line-height: 1.6;
+}
+
+.chart__header {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 2.0rem;
+}
+
+.chart__chart {
+  background-color: antiquewhite;
+}
+
+.chart__footer {
+  font-size: 0.5em;
+}

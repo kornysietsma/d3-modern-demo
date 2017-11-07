@@ -1,0 +1,34 @@
+
+.chart__header { grid-area: header; }
+.chart__footer { grid-area: footer; }
+.chart__chart { grid-area: main; }
+.chart__controls { grid-area: controls; }
+.chart__inspect { grid-area: inspect; }
+
+.chart {
+    display: grid;
+    grid-template-areas: "header header header"
+                         "controls main inspect"
+                         "footer footer footer";
+    grid-template-columns: 150px 1fr 150px;
+    grid-template-rows: 100px
+                        1fr
+                        30px;
+    min-height: 100vh;
+}
+
+@media screen and (max-width: 600px) {
+    .chart {
+        grid-template-areas: "header"
+                             "main"
+                             "inspect"
+                             "controls"
+                             "footer";
+        grid-template-columns: 100%;
+        grid-template-rows: 100px
+                            50px
+                            1fr
+                            50px
+                            30px;
+    }
+}
