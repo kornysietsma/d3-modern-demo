@@ -28,4 +28,26 @@ So to view the chart, you need to run a tiny http server - the easiest way is to
 
 And then browse to `http://localhost:8000/docs/index.html`
 
-Or you should be able to view the chart in Github Pages, I think.
+Or you can view the current committed chart on github pages:
+
+https://kornysietsma.github.io/d3-modern-demo/
+
+## Approach to data
+
+I largely tinker with stuff like this on the train; also
+I dislike having to depend on external services.
+
+As such, I'm mostly going to store data directly in JavaScript
+files, and auto-generate them from scripts.
+
+So there'll be a file like `docs/js/data.js` containing:
+```
+chartData = [
+{ "zik": "zak" },
+]
+```
+
+(with appropriate es6 module stuff) - and the chart will just load this data.  This has the big advantage of meaning we need no ajax,
+no complex server, we can just treat the thing as static content.
+Changing the content requires re-generating the `data.js` file and
+pushing the new data to github.

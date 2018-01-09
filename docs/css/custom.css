@@ -19,6 +19,12 @@ h1 {
 .chart__chart {
   background-color: antiquewhite;
 }
+.chart__controls {
+  background-color: #cfffff;
+}
+.chart__inspect {
+  background-color: #ffcfff;
+}
 
 .chart__footer {
   font-size: 0.5em;

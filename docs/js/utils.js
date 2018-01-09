@@ -1,5 +1,8 @@
 export default {
-    alert: (msg)=>{
-        alert(msg);
+    flog: (msg)=>{
+        console.log(msg);
+    },
+    remove_warning: (elementId) => {
+      document.getElementById(elementId).style.display = 'none';
     }
 };

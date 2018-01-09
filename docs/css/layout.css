@@ -5,30 +5,48 @@
 .chart__controls { grid-area: controls; }
 .chart__inspect { grid-area: inspect; }
 
+/* The goal is to have a 1024x768 chart in the middle.
+  If you have room, the inspect and control panels
+  will be left and right,
+  If not they will be below, on the left and right.
+  If you don't have 1024px then it'll be a single column,
+  scaled.
+*/
+
 .chart {
     display: grid;
     grid-template-areas: "header header header"
-                         "controls main inspect"
-                         "footer footer footer";
-    grid-template-columns: 150px 1fr 150px;
+                         "controls main inspect";
+    grid-template-columns: 400px 1024px 400px;
     grid-template-rows: 100px
-                        1fr
-                        30px;
+                        1fr;
     min-height: 100vh;
+    justify-content: center;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1824px) {
+    .chart {
+      grid-template-areas: "header header header"
+                           "main main main"
+                           "controls . inspect";
+      grid-template-columns: 400px 224px 400px;
+      grid-template-rows: 100px
+                          1fr
+                          auto
+                          auto;
+    }
+}
+
+@media screen and (max-width: 1024px) {
     .chart {
         grid-template-areas: "header"
                              "main"
-                             "inspect"
                              "controls"
-                             "footer";
+                             "inspect";
         grid-template-columns: 100%;
         grid-template-rows: 100px
-                            50px
-                            1fr
-                            50px
-                            30px;
+                            auto
+                            auto
+                            auto;
     }
 }
