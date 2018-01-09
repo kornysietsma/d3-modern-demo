@@ -18,7 +18,7 @@
     grid-template-areas: "header header header"
                          "controls main inspect";
     grid-template-columns: 400px 1024px 400px;
-    grid-template-rows: 100px
+    grid-template-rows: auto
                         1fr;
     min-height: 100vh;
     justify-content: center;
@@ -30,7 +30,7 @@
                            "main main main"
                            "controls . inspect";
       grid-template-columns: 400px 224px 400px;
-      grid-template-rows: 100px
+      grid-template-rows: auto
                           1fr
                           auto
                           auto;
@@ -44,7 +44,7 @@
                              "controls"
                              "inspect";
         grid-template-columns: 100%;
-        grid-template-rows: 100px
+        grid-template-rows: auto
                             auto
                             auto
                             auto;
