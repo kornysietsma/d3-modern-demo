@@ -51,3 +51,10 @@ chartData = [
 no complex server, we can just treat the thing as static content.
 Changing the content requires re-generating the `data.js` file and
 pushing the new data to github.
+
+## syntax and other checks with eslint
+I have some basic eslint rules included, you'll need to integrate them
+with your favourite toolset yourself if you want linting.
+
+This is (currently) the only reason for the node.js `packages.json` file - for simple
+editing you can ignore this.
