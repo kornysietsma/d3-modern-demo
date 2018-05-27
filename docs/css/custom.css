@@ -29,3 +29,28 @@ body {
 .chart__footer {
   font-size: 0.5em;
 }
+
+.x-axis-group line {
+  stroke: #fff;
+}
+.x-axis-group path {
+  stroke: #fff;
+}
+.x-axis-group text {
+  fill: #fff;
+}
+
+.y-axis-group line {
+  stroke: #fff;
+}
+.y-axis-group path {
+  stroke: #fff;
+}
+.y-axis-group text {
+  fill: #fff;
+}
+
+path.sizeLine {
+  stroke-width: 3px;
+  stroke: rgba(255, 229, 0, 0.53);
+}
