@@ -50,7 +50,6 @@ body {
   fill: #fff;
 }
 
-path.sizeLine {
-  stroke-width: 3px;
-  stroke: rgba(255, 229, 0, 0.53);
+circle.commit {
+  fill: #27ff00;
 }

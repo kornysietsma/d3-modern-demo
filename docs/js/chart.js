@@ -1,4 +1,4 @@
-import { removeWarning } from './utils.js';
+import {removeWarning} from './utils.js';
 import rawData from './exported-data.js';
 
 removeWarning('old_browser_warning');
@@ -16,7 +16,6 @@ const chartConfig = {
 };
 
 function initialiseChartElements(rootSelector, config) {
-    const width = config.outerWidth - config.margins.left - config.margins.right;
     const height = config.outerHeight - config.margins.top - config.margins.bottom;
 
     const chartEl = d3.select(rootSelector).append('svg')
@@ -40,10 +39,14 @@ function initialiseChartElements(rootSelector, config) {
 }
 
 function postProcessData(data) {
-    // at the moment, just convert dates to unix epoch seconds and make datastructures immutable
+    // for this sample, just convert dates to unix epoch seconds and make datastructures immutable
     return Immutable.fromJS(data)
-        .map(d => d.update('date', date => moment(date, moment.ISO_8601).unix()))
+        .map(d => d.set('date', moment(d.get('commit-time'), moment.ISO_8601).unix()))
         .sortBy(d => d.get('date'));
+}
+
+function secsToDays(secs) {
+    return secs / (60.0 * 60 * 24);
 }
 
 function updateChart(config, elements, data) {
@@ -58,15 +61,15 @@ function updateChart(config, elements, data) {
 
     const minDate = data.map(d => d.get('date')).min();
     const maxDate = data.map(d => d.get('date')).max();
-    const maxSize = data.map(d => d.get('size')).max();
+    const maxDuration = secsToDays(data.map(d => d.get('release-delay')).max());
 
     const yScale = d3.scaleLinear()
-        .domain([0, maxSize])
+        .domain([0, maxDuration])
         .range([height - config.margins.bottom, config.margins.top]);
 
     const yAxis = d3.axisLeft()
-        .scale(yScale);
-    // TODO - y scale ticks
+        .scale(yScale)
+        .ticks(10, 'd');
 
     yAxisGroup.call(yAxis);
 
@@ -76,28 +79,25 @@ function updateChart(config, elements, data) {
 
     const xAxis = d3.axisBottom()
         .scale(xScale)
-        .ticks(d3.timeDay.every(1))
+        .ticks(d3.timeWeek.every(1))
         .tickFormat(d3.timeFormat('%d/%m'));
 
     xAxisGroup.call(xAxis);
 
-    const lineClass = 'sizeLine';
+    const commits = chartEl.selectAll('.commit')
+        .data(data.toArray(), commit => commit.get('id'));
 
-    const theLine = d3.line()
-        .curve(d3.curveMonotoneX)
-        .x(d => xScale(moment.unix(d.get('date')).toDate()))
-        .y(d => yScale(d.get('size')));
+    const newCommits = commits
+        .enter()
+        .append('circle')
+        .attr('class', 'commit')
+        .attr('r', 6);
 
-    const line = chartEl.selectAll(`.${lineClass}`).data([data.toArray()]);
-
-    const newLine = line.enter()
-        .append('path')
-        .attr('class', lineClass)
-        .style('fill', 'none');
-
-    line.merge(newLine).attr('d', theLine);
-
-    line.exit().remove();
+    commits.merge(newCommits)
+        .attr('cx', j => xScale(moment.unix(j.get('date')).toDate()))
+        .attr('cy', j => yScale(secsToDays(j.get('release-delay'))))
+        .append('svg:title')
+        .text(n => n.get('msg'));
 }
 
 const chartElements = initialiseChartElements('#chart_parent', chartConfig);
@@ -105,3 +105,5 @@ const chartElements = initialiseChartElements('#chart_parent', chartConfig);
 const data = postProcessData(rawData);
 
 updateChart(chartConfig, chartElements, data);
+
+// updateChart can be called by event handlers and the like to, y'know, update the chart.

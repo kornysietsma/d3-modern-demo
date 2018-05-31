@@ -26,9 +26,13 @@ So to view the chart, you need to run a tiny http server - the easiest way is to
 
 `python -m SimpleHTTPServer 8000`
 
+or if you have python3:
+
+`python3 -m http.server 8000`
+
 And then browse to `http://localhost:8000/docs/index.html`
 
-Or you can view the current committed chart on github pages:
+Or you can view the current chart on github pages:
 
 https://kornysietsma.github.io/d3-modern-demo/
 
@@ -52,7 +56,11 @@ no complex server, we can just treat the thing as static content.
 Changing the content requires re-generating the `data.js` file and
 pushing the new data to github.
 
-## syntax and other checks with eslint
+For this demo I have some git timing data - don't worry too much about
+what this means, I'm just using it as it's easier to graph real data than fake,
+and I plan to do more with similar data in another project.
+
+## Syntax and other checks with eslint
 I have some basic eslint rules included, you'll need to integrate them
 with your favourite toolset yourself if you want linting.
 
