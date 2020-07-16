@@ -1,3 +1,11 @@
+# DEPRECATED
+
+I've now moved to using React - this stuff works, but it's really annoying to do any real UI work.
+
+See <https://github.com/kornysietsma/d3-react-demo> for my latest approach.
+
+Old readme follows:
+
 This is a work in progress!
 
 # D3 on a modern browser
